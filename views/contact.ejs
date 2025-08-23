@@ -1,24 +1,97 @@
-
-
 <h2>Contact Us</h2>
-
-<% if (success) { %>
-  <p style="color: green;"><%= success %></p>
-<% } %>
 
 <% if (error) { %>
   <p style="color: red;"><%= error %></p>
 <% } %>
 
-<form method="POST" action="/contact">
-  <label>Name:</label>
-  <input type="text" name="name" required /><br/><br/>
+<% if (success) { %>
+  <p style="color: green;"><%= success %></p>
+<% } %>
+
+<form id="contactForm" method="POST" action="/contact">
+  
+  <label>Full Name:</label>
+  <input type="text" name="name" id="name" required minlength="3" />
+  <br />
 
   <label>Email:</label>
-  <input type="email" name="email" required /><br/><br/>
+  <input type="email" name="email" id="email" required />
+  <br />
+
+  <label>Phone Number:</label>
+  <input type="tel" name="phone" id="phone" pattern="[0-9]{10}" placeholder="10-digit number" />
+  <br />
+
+  <label>Subject:</label>
+  <select name="subject" id="subject" required>
+    <option value="">--Select--</option>
+    <option value="general">General Inquiry</option>
+    <option value="support">Technical Support</option>
+    <option value="feedback">Feedback</option>
+    <option value="other">Other</option>
+  </select>
+  <br />
 
   <label>Message:</label>
-  <textarea name="message" required></textarea><br/><br/>
+  <textarea name="message" id="message" required minlength="10"></textarea>
+  <br />
 
-  <button type="submit">Submit</button>
+  <label>Preferred Contact:</label>
+  <input type="radio" name="contactMethod" value="email" checked /> Email
+  <input type="radio" name="contactMethod" value="phone" /> Phone
+  <br />
+
+  <label>
+    <input type="checkbox" name="newsletter" value="yes" />
+    Subscribe to Newsletter
+  </label>
+  <br />
+
+  <button type="submit">Send</button>
 </form>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const subject = document.getElementById("subject").value;
+    const message = document.getElementById("message").value.trim();
+
+    // Name validation
+    if (name.length < 3) {
+      alert("Name must be at least 3 characters long.");
+      e.preventDefault();
+      return;
+    }
+
+    // Email validation (basic regex)
+    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      e.preventDefault();
+      return;
+    }
+
+    // Phone validation (optional, but if entered must be 10 digits)
+    if (phone && !/^\d{10}$/.test(phone)) {
+      alert("Phone number must be 10 digits.");
+      e.preventDefault();
+      return;
+    }
+
+    // Subject validation
+    if (!subject) {
+      alert("Please select a subject.");
+      e.preventDefault();
+      return;
+    }
+
+    // Message validation
+    if (message.length < 10) {
+      alert("Message must be at least 10 characters long.");
+      e.preventDefault();
+      return;
+    }
+  });
+</script>
