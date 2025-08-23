@@ -8,18 +8,45 @@ const getContact = (req, res) => {
 // POST → save form data
 const postContact = async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    const { name, email, phone, subject, message, contactMethod, newsletter } = req.body;
 
-    if (!name || !email || !message) {
-      return res.render("contact", { success: null, error: "All fields are required!" });
+    //server-side validation
+    if (!name || name.trim().length < 3) {
+      return res.render("contact", { success: null, error: "Name must be at least 3 characters long." });
     }
 
-    await Contact.create({ name, email, message });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      return res.render("contact", { success: null, error: "Please provide a valid email address." });
+    }
 
-    res.render("contact", { success: "Form submitted successfully!", error: null });
+    if (phone && !/^\d{10}$/.test(phone)) {
+      return res.render("contact", { success: null, error: "Phone number must be 10 digits." });
+    }
+
+    if (!subject) {
+      return res.render("contact", { success: null, error: "Please select a subject." });
+    }
+
+    if (!message || message.trim().length < 10) {
+      return res.render("contact", { success: null, error: "Message must be at least 10 characters long." });
+    }
+
+    
+    await Contact.create({
+      name,
+      email,
+      phone,
+      subject,
+      message,
+      contactMethod,
+      newsletter: newsletter === "yes"
+    });
+
+    res.render("contact", { success: "✅ Form submitted successfully!", error: null });
   } catch (err) {
     console.error(err);
-    res.render("contact", { success: null, error: "Server error, please try again" });
+    res.render("contact", { success: null, error: "❌ Server error, please try again." });
   }
 };
 
