@@ -8,9 +8,9 @@ const getContact = (req, res) => {
 // POST → save form data
 const postContact = async (req, res) => {
   try {
-    const { name, email, phone, subject, message, contactMethod, newsletter } = req.body;
+    const { name, email, phone, subject, message, contactMethod, newsletter, password } = req.body;
 
-    //server-side validation
+    // ✅ Server-side validation
     if (!name || name.trim().length < 3) {
       return res.render("contact", { success: null, error: "Name must be at least 3 characters long." });
     }
@@ -32,7 +32,11 @@ const postContact = async (req, res) => {
       return res.render("contact", { success: null, error: "Message must be at least 10 characters long." });
     }
 
-    
+    if (!password || password.length < 8) {
+      return res.render("contact", { success: null, error: "Password must be at least 8 characters long." });
+    }
+
+    // ✅ Now saving → password gets hashed automatically in model
     await Contact.create({
       name,
       email,
@@ -40,7 +44,8 @@ const postContact = async (req, res) => {
       subject,
       message,
       contactMethod,
-      newsletter: newsletter === "yes"
+      newsletter: newsletter === "yes",
+      password
     });
 
     res.render("contact", { success: "✅ Form submitted successfully!", error: null });

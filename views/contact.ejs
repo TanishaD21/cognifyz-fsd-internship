@@ -8,7 +8,7 @@
   <p style="color: green;"><%= success %></p>
 <% } %>
 
-<form id="contactForm" method="POST" action="/contact">
+<form id="contactForm" method="POST" action="/contact" novalidate>
   
   <label>Full Name:</label>
   <input type="text" name="name" id="name" required minlength="3" />
@@ -16,6 +16,22 @@
 
   <label>Email:</label>
   <input type="email" name="email" id="email" required />
+  <br />
+
+  <label>Password:</label>
+  <input type="password" name="password" id="password" required minlength="8" />
+  <small id="passwordHelp" style="display:block; margin-bottom:1rem; color: gray;">
+    Must be at least 8 characters, with uppercase, lowercase, number, and special character.
+  </small>
+
+  <!-- Password Strength Indicator -->
+  <div id="strengthWrapper" style="margin-bottom: 1.5rem;">
+    <div id="strengthBar" style="height: 10px; border-radius: 5px; background: #ddd;"></div>
+    <p id="strengthText" style="font-size: 0.9rem; margin-top: 5px; font-weight: 600;"></p>
+  </div>
+
+  <label>Confirm Password:</label>
+  <input type="password" name="confirmPassword" id="confirmPassword" required minlength="8" />
   <br />
 
   <label>Phone Number:</label>
@@ -51,47 +67,78 @@
 </form>
 
 <script>
-  document.getElementById("contactForm").addEventListener("submit", function(e) {
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const subject = document.getElementById("subject").value;
-    const message = document.getElementById("message").value.trim();
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contactForm");
 
-    // Name validation
-    if (name.length < 3) {
-      alert("Name must be at least 3 characters long.");
-      e.preventDefault();
-      return;
-    }
+    const nameEl = document.getElementById("name");
+    const emailEl = document.getElementById("email");
+    const phoneEl = document.getElementById("phone");
+    const subjectEl = document.getElementById("subject");
+    const messageEl = document.getElementById("message");
+    const passwordEl = document.getElementById("password");
+    
 
-    // Email validation (basic regex)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address.");
-      e.preventDefault();
-      return;
-    }
+    const strengthBar = document.getElementById("strengthBar");
+    const strengthText = document.getElementById("strengthText");
 
-    // Phone validation (optional, but if entered must be 10 digits)
-    if (phone && !/^\d{10}$/.test(phone)) {
-      alert("Phone number must be 10 digits.");
-      e.preventDefault();
-      return;
-    }
+    // Live password strength meter
+    passwordEl.addEventListener("input", () => {
+      const value = passwordEl.value;
+      let strength = 0;
 
-    // Subject validation
-    if (!subject) {
-      alert("Please select a subject.");
-      e.preventDefault();
-      return;
-    }
+      if (value.length >= 8) strength++;
+      if (/[A-Z]/.test(value)) strength++;
+      if (/[a-z]/.test(value)) strength++;
+      if (/\d/.test(value)) strength++;
+      if (/[@$!%*?&]/.test(value)) strength++;
 
-    // Message validation
-    if (message.length < 10) {
-      alert("Message must be at least 10 characters long.");
-      e.preventDefault();
-      return;
-    }
+      if (strength <= 2) {
+        strengthBar.style.width = "33%";
+        strengthBar.style.background = "red";
+        strengthText.textContent = "Weak 🔴";
+        strengthText.style.color = "red";
+      } else if (strength <= 4) {
+        strengthBar.style.width = "66%";
+        strengthBar.style.background = "orange";
+        strengthText.textContent = "Medium 🟠";
+        strengthText.style.color = "orange";
+      } else {
+        strengthBar.style.width = "100%";
+        strengthBar.style.background = "green";
+        strengthText.textContent = "Strong 🟢";
+        strengthText.style.color = "green";
+      }
+    });
+
+    // Submit validation
+    form.addEventListener("submit", (e) => {
+      const name = nameEl.value.trim();
+      const email = emailEl.value.trim();
+      const phone = phoneEl.value.trim();
+      const subject = subjectEl.value;
+      const message = messageEl.value.trim();
+      const pwd = passwordEl.value;
+      const confirmPwd = document.getElementById("confirmPassword").value;
+
+      if (name.length < 3) { alert("Name must be at least 3 characters long."); e.preventDefault(); return; }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) { alert("Please enter a valid email."); e.preventDefault(); return; }
+      if (phone && !/^\d{10}$/.test(phone)) { alert("Phone number must be 10 digits."); e.preventDefault(); return; }
+      if (!subject) { alert("Please select a subject."); e.preventDefault(); return; }
+      if (message.length < 10) { alert("Message must be at least 10 characters long."); e.preventDefault(); return; }
+      if (pwd !== confirmPwd) {
+        alert("Passwords do not match!");
+        e.preventDefault();
+        return;
+      }
+
+      const strongPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+      if (!strongPwd.test(pwd)) {
+        alert("Password must be 8+ chars with uppercase, lowercase, number, special char.");
+        e.preventDefault();
+        return;
+      }
+    });
   });
 </script>
+
