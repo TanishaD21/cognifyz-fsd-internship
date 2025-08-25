@@ -25,15 +25,12 @@ connectDB();
 
 // Routes
 const indexRoutes = require("./routes/index");
+const authRoutes = require("./routes/auth");
 const apiRoutes = require("./routes/api");
 
-app.use("/", indexRoutes);
-app.use("/api", apiRoutes);
-
-
-app.get("/items", (req, res) => {
-  res.render("items");
-});
+app.use("/", indexRoutes);         // Home, Contact, Items (views)
+app.use("/api/auth", authRoutes);  // Auth endpoints
+app.use("/api", apiRoutes);        // Items CRUD API
 
 // Error handler
 app.use((req, res) => {
