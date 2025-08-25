@@ -138,9 +138,9 @@ http://localhost:3000
 
 ---
 
-## 📸 Output Screenshots (Add yours!)
+## 📸 Output Screenshots
 
-```md
+
 ### 🔐 Landing Page
 ![Landing Page](screenshots/landing.png)
 
@@ -149,7 +149,7 @@ http://localhost:3000
 
 ### 🧠 JWT in DevTools
 ![JWT](screenshots/token.png)
-```
+
 
 ---
 
