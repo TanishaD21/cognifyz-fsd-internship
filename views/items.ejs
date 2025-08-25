@@ -1,0 +1,22 @@
+<h1 style="text-align: center;">Items</h1>
+
+<!-- MESSAGE BOX -->
+<div id="messageBox" class="alert" role="alert" style="display:none;"></div>
+
+<!-- CREATE FORM -->
+<div>
+  <form id="item-form" onsubmit="addItem(event)">
+    <input type="text" id="name" placeholder="Item Name" required />
+    <input type="text" id="description" placeholder="Description" />
+    <input type="number" id="price" placeholder="Price" required />
+    <label>
+      <input type="checkbox" id="inStock" checked /> In Stock
+    </label>
+    <button type="submit" class="btn btn-primary">Add Item</button>
+  </form>
+</div>
+
+<h2 style="color: rgba(0,0,0,0.4)">Item List</h2>
+<ul id="items-list" class="list-group mt-3"></ul>
+
+<script src="/js/api.js"></script>
