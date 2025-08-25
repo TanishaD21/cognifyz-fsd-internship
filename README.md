@@ -106,7 +106,7 @@ cognifyz-fsd-internship/
 1. **Clone the repo**
 
 ```bash
-git clone https://github.com/your-username/cognifyz-fsd-internship.git
+git clone https://github.com/TanishaD21/cognifyz-fsd-internship.git
 cd cognifyz-fsd-internship
 ```
 
