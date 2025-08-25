@@ -25,11 +25,19 @@ connectDB();
 
 // Routes
 const indexRoutes = require("./routes/index");
+const apiRoutes = require("./routes/api");
+
 app.use("/", indexRoutes);
+app.use("/api", apiRoutes);
+
+// 🔥 ADD THIS ROUTE for Level 3 Task 5
+app.get("/items", (req, res) => {
+  res.render("items");
+});
 
 // Error handler
 app.use((req, res) => {
-  res.status(404).send("Page not found!");
+  res.status(404).render("error", { error: "Page not found!" });
 });
 
 const PORT = process.env.PORT || 3000;

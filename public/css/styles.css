@@ -182,6 +182,16 @@ body {
   background: linear-gradient(45deg, #5a6fd8, #6a4190);
 }
 
+.btn-secondary {
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  border: none;
+  padding: 15px 40px;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(255, 126, 95, 0.3);
+}
+
 /* Enhanced Contact Form */
 h2 {
   font-size: 2.5rem;
@@ -214,6 +224,7 @@ input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="password"],
+input[type="number"],
 select,
 textarea {
   width: 100%;
@@ -230,6 +241,7 @@ input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus,
 input[type="password"]:focus,
+input[type="number"]:focus,
 select:focus,
 textarea:focus {
   outline: none;
