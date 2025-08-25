@@ -142,7 +142,7 @@ http://localhost:3000
 
 ```md
 ### 🔐 Landing Page
-![Register](screenshots/landing.png)
+![Landing Page](screenshots/landing.png)
 
 ### ✅ Items CRUD
 ![CRUD](screenshots/items.png)
