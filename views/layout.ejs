@@ -17,22 +17,22 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/">Cognifyz Internship Project</a>
+      <a class="navbar-brand spa-link" href="/">Cognifyz Internship Project</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/items">Items</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link spa-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link spa-link" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link spa-link" href="/items">Items</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Main Content -->
-  <main class="container my-4">
+  <main class="container my-4" id="app">
     <%- body %>
   </main>
 
@@ -43,5 +43,9 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Router for SPA -->
+  <script src="/js/router.js"></script>
+  <script src="/js/validate.js"></script>
 </body>
 </html>
