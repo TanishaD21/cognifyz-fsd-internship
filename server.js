@@ -30,7 +30,7 @@ const apiRoutes = require("./routes/api");
 app.use("/", indexRoutes);
 app.use("/api", apiRoutes);
 
-// 🔥 ADD THIS ROUTE for Level 3 Task 5
+
 app.get("/items", (req, res) => {
   res.render("items");
 });
