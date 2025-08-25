@@ -23,10 +23,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link spa-link" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link spa-link" href="/contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link spa-link" href="/items">Items</a></li>
-        </ul>
+  <li class="nav-item"><a class="nav-link spa-link" href="/">Home</a></li>
+  <li class="nav-item"><a class="nav-link spa-link" href="/contact">Contact</a></li>
+  <li class="nav-item"><a class="nav-link spa-link" href="/items">Items</a></li>
+  <li class="nav-item"><a class="nav-link spa-link" href="/login">Login</a></li>
+  <li class="nav-item"><a class="nav-link spa-link" href="/register">Register</a></li>
+  <li class="nav-item">
+    <button class="btn btn-danger btn-sm ms-2" id="logoutBtn">Logout</button>
+  </li>
+</ul>
+
       </div>
     </div>
   </nav>
@@ -47,5 +53,8 @@
   <!-- Router for SPA -->
   <script src="/js/router.js"></script>
   <script src="/js/validate.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>document.getElementById("logoutBtn")?.addEventListener("click", logout);
+</script>
 </body>
 </html>

@@ -35,4 +35,22 @@ router.get("/items", (req, res) => {
   });
 });
 
+// Login
+router.get("/login", (req, res) => {
+  if (isSpa(req)) {
+    res.render("login", { layout: false, title: "Login" });
+  } else {
+    res.render("login", { title: "Login" });
+  }
+});
+
+// Register
+router.get("/register", (req, res) => {
+  if (isSpa(req)) {
+    res.render("register", { layout: false, title: "Register" });
+  } else {
+    res.render("register", { title: "Register" });
+  }
+});
+
 module.exports = router;
